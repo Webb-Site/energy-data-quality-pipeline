@@ -1,0 +1,7 @@
+source_file,row_id,field,issue_type,issue_description
+customers,C004,postcode,missing_value,Customer postcode is missing
+customers,C005,signup_date,invalid_date,Signup date could not be parsed
+meter_readings,R007,reading_start,invalid_date,Reading start could not be parsed
+meter_readings,R006,kwh_used,invalid_value,kWh usage cannot be negative
+meter_readings,R005,customer_id,orphan_record,Meter reading references an unknown customer
+tariffs,C005,unit_rate,missing_value,Tariff unit rate is missing

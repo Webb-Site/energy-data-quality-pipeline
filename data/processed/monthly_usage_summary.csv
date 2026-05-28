@@ -1,0 +1,4 @@
+customer_id,postcode,customer_type,reading_month,tariff_name,total_kwh,estimated_cost,reading_count
+C001,E14 3WQ,residential,2024-05,standard,0.4,0.11599999999999999,2
+C002,SW1A 1AA,residential,2024-05,green,0.31,0.0961,1
+C003,N1 9GU,business,2024-05,business,1.4,0.378,1

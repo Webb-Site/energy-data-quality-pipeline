@@ -1,0 +1,5 @@
+customer_id,postcode,signup_date,customer_type
+C001,E14 3WQ,2024-01-15,residential
+C002,SW1A 1AA,2024-02-02,residential
+C003,N1 9GU,2024-03-11,business
+C004,,2024-04-20,residential

@@ -1,0 +1,6 @@
+customer_id,tariff_name,unit_rate
+C001,standard,0.29
+C002,green,0.31
+C003,business,0.27
+C004,standard,0.29
+C005,green,
