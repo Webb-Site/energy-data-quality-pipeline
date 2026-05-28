@@ -56,6 +56,12 @@ def make_sample_data() -> None:
                 "signup_date": "invalid_date",
                 "customer_type": "residential",
             },
+            { #Intentional duplicate customer_id to test handling of duplicates
+                "customer_id": "C001",
+                "postcode": "E14 3WQ",
+                "signup_date": "2024-01-15",
+                "customer_type": "residential",
+             },
         ]
     )
 

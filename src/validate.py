@@ -77,6 +77,22 @@ def validate_customers(customers: pd.DataFrame) -> list[dict]:
             "Customer postcode is missing",
         )
 
+    duplicate_customer_ids = customers[
+        customers["customer_id"].duplicated(keep="first")]
+    
+    for row_index, row in duplicate_customer_ids.iterrows():
+        add_issue(
+            issues=issues,
+            source_file="customers",
+            row_id=f"{row['customer_id']} at row {row_index}",
+            field="customer_id",
+            issue_type="duplicate_record",
+            issue_description=(
+                "Duplicate customer_id found after first occurrence; "
+                "first occurrence is treated as the accepted record"
+            ),
+        )
+    
     # Convert signup_date to a real date.
     # errors="coerce" means invalid dates become NaT instead of crashing.
     parsed_dates = pd.to_datetime(customers["signup_date"], errors="coerce")

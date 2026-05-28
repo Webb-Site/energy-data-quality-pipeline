@@ -24,6 +24,9 @@ def clean_customers(customers: pd.DataFrame) -> pd.DataFrame:
     # - uppercase everything
     # - remove leading/trailing spaces
     df["postcode"] = df["postcode"].fillna("").str.upper().str.strip()
+    
+    # Remove Duplicate Customers
+    df = df.drop_duplicates(subset="customer_id", keep="first")
 
     # Keep only rows with a customer_id and a valid signup date.
     # This is a simple cleaning choice for the project.

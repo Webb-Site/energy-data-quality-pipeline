@@ -1,5 +1,6 @@
 source_file,row_id,field,issue_type,issue_description
 customers,C004,postcode,missing_value,Customer postcode is missing
+customers,C001 at row 5,customer_id,duplicate_record,Duplicate customer_id found after first occurrence; first occurrence is treated as the accepted record
 customers,C005,signup_date,invalid_date,Signup date could not be parsed
 meter_readings,R007,reading_start,invalid_date,Reading start could not be parsed
 meter_readings,R006,kwh_used,invalid_value,kWh usage cannot be negative
