@@ -9,8 +9,11 @@ def clean_customers(customers: pd.DataFrame) -> pd.DataFrame:
     and remove rows that cannot be used safely downstream.
     """
 
+    # Thinking ahead, for larger datasets I may encounter memory issues if I keep unnecessary columns around.
+    columns_needed = ["customer_id", "postcode", "signup_date", "customer_type"]
+    
     # Work on a copy so we do not accidentally modify the original raw data.
-    df = customers.copy()
+    df = customers[columns_needed].copy()
 
     # Convert signup_date from text into a datetime column.
     # Invalid dates become NaT.
@@ -42,8 +45,10 @@ def clean_meter_readings(
     We remove readings with invalid timestamps, negative usage,
     or customer IDs that do not exist in the cleaned customers table.
     """
+    
+    columns_needed = ["reading_id", "customer_id", "reading_start", "kwh_used"]
 
-    df = meter_readings.copy()
+    df = meter_readings[columns_needed].copy()
 
     # Convert reading_start from text into a timezone-aware timestamp.
     df["reading_start"] = pd.to_datetime(
@@ -78,7 +83,8 @@ def clean_tariffs(tariffs: pd.DataFrame) -> pd.DataFrame:
     estimated cost cannot be calculated reliably.
     """
 
-    df = tariffs.copy()
+    columns_needed = ["customer_id", "tariff_name", "unit_rate"]
+    df = tariffs[columns_needed].copy()
 
     # Remove missing rates.
     df = df[df["unit_rate"].notna()]

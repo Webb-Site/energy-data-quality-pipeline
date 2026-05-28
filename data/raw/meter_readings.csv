@@ -1,8 +1,8 @@
 reading_id,customer_id,reading_start,kwh_used
 R001,C001,2024-05-01T00:00:00Z,0.22
-R002,C001,2024-05-01T00:30:00Z,0.18
+R002,C001,2024-05-01T00:30:00Z,0.18 
 R003,C002,2024-05-01T00:00:00Z,0.31
 R004,C003,2024-05-01T00:00:00Z,1.4
 R005,C999,2024-05-01T00:00:00Z,0.25
-R006,C004,2024-05-01T00:00:00Z,-0.1
-R007,C005,not_a_date,0.75
+R006,C004,2024-05-01T00:00:00Z,-0.1 #expected to fail validation due to negative kwh_used
+R007,C005,not_a_date,0.75 #expected to fail validation due to invalid reading_start date format
