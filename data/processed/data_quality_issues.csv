@@ -4,5 +4,6 @@ customers,C001 at row 5,customer_id,duplicate_record,Duplicate customer_id found
 customers,C005,signup_date,invalid_date,Signup date could not be parsed
 meter_readings,R007,reading_start,invalid_date,Reading start could not be parsed
 meter_readings,R006,kwh_used,invalid_value,kWh usage cannot be negative
+meter_readings,R008,kwh_used,outlier,kWh usage is above 10.0 for a half-hour reading
 meter_readings,R005,customer_id,orphan_record,Meter reading references an unknown customer
 tariffs,C005,unit_rate,missing_value,Tariff unit rate is missing

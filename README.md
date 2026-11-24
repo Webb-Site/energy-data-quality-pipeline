@@ -1,5 +1,7 @@
 # Energy Data Quality Pipeline
 
+[![CI](https://github.com/Webb-Site/energy-data-quality-pipeline/actions/workflows/ci.yml/badge.svg)](https://github.com/Webb-Site/energy-data-quality-pipeline/actions/workflows/ci.yml)
+
 A small Python and SQL data pipeline that ingests energy customer, tariff and meter-reading data, validates common data quality issues, transforms the data into reporting-ready outputs, and loads the results into DuckDB.
 
 The project is intentionally small, but structured around production-minded habits: modular code, reusable validation helpers, data quality reporting, automated tests, clear documentation and a local analytical warehouse layer.
@@ -20,7 +22,7 @@ I built this project to practise data platform engineering concepts relevant to 
 - automated testing
 - documentation and maintainable project structure
 
-The project is also part of my move from BI/reporting and workflow automation toward analytics engineering, data engineering and data platform work.
+In my day job I build production data services on a data platform team. This repo is where I try ideas in the open: a small pipeline where every rule is explicit, every issue is recorded rather than silently dropped, and every rule is tested.
 
 ---
 
@@ -59,7 +61,6 @@ energy-data-quality-pipeline/
   tests/
     test_validate.py
     test_transform.py
-  docs/
   README.md
   requirements.txt
   pyproject.toml
@@ -92,7 +93,7 @@ The validation layer checks for:
 - duplicate customer IDs
 - invalid meter-reading timestamps
 - negative kWh readings
-- unusually high kWh readings
+- unusually high kWh readings (over 10 kWh in a half-hour reading)
 - meter readings linked to unknown customers
 - missing or invalid tariff unit rates
 
@@ -174,7 +175,7 @@ Create and activate a virtual environment:
 
 ```bash
 python -m venv .venv
-.venv\Scripts\activate
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
 ```
 
 Install dependencies:
@@ -218,6 +219,8 @@ Current tests cover:
 - unusually high kWh readings are flagged as outliers
 
 Passing tests confirm that the core validation and cleaning rules behave as expected.
+
+GitHub Actions runs `ruff`, the tests and the whole pipeline end to end on every push and pull request.
 
 ---
 
@@ -269,7 +272,6 @@ If this were developed into a production-style data platform workflow, I would a
 - cloud warehouse storage such as BigQuery, Snowflake or Postgres
 - dbt models for SQL transformations, tests and documentation
 - schema validation with pandera or Great Expectations
-- CI/CD using GitHub Actions
 - monitoring and alerting for failed pipeline runs
 - incremental loading rather than full refreshes
 - dashboarding in Power BI, Lightdash or Looker Studio

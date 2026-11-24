@@ -1,5 +1,9 @@
 import pandas as pd
 
+# Readings are half-hourly. 10 kWh in half an hour means a constant 20 kW draw,
+# which is far above what a home uses, so anything higher is flagged as an outlier.
+MAX_HALF_HOURLY_KWH = 10.0
+
 
 def add_issue(
     issues: list[dict],
@@ -124,6 +128,7 @@ def validate_meter_readings(
     - expected columns exist
     - reading_start is a valid timestamp
     - kWh usage is not negative
+    - kWh usage is not unusually high
     - each reading belongs to a known customer
     """
 
@@ -177,6 +182,20 @@ def validate_meter_readings(
             "kwh_used",
             "invalid_value",
             "kWh usage cannot be negative",
+        )
+
+    # Unusually high usage is kept but flagged, so a person can check it.
+    # It may be a meter fault, or a real but rare event such as EV charging.
+    high_usage = meter_readings[meter_readings["kwh_used"] > MAX_HALF_HOURLY_KWH]
+
+    for _, row in high_usage.iterrows():
+        add_issue(
+            issues,
+            "meter_readings",
+            row["reading_id"],
+            "kwh_used",
+            "outlier",
+            f"kWh usage is above {MAX_HALF_HOURLY_KWH} for a half-hour reading",
         )
 
     # Referential integrity check:

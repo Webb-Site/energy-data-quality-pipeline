@@ -1,6 +1,6 @@
 import pandas as pd
 
-from src.transform import clean_meter_readings
+from src.transform import clean_customers, clean_meter_readings
 
 
 def test_invalid_reading_dates_are_removed():
@@ -31,3 +31,16 @@ def test_invalid_reading_dates_are_removed():
 
     assert len(cleaned) == 1
     assert cleaned.iloc[0]["reading_id"] == "R002"
+
+def test_later_duplicate_customer_is_removed():
+    customers = pd.DataFrame(
+        [
+            {"customer_id": "C001", "postcode": "e14 3wq ", "signup_date": "2024-01-15", "customer_type": "residential"},
+            {"customer_id": "C001", "postcode": "N1 9GU", "signup_date": "2024-02-01", "customer_type": "residential"},
+        ]
+    )
+
+    cleaned = clean_customers(customers)
+
+    assert len(cleaned) == 1
+    assert cleaned.iloc[0]["postcode"] == "E14 3WQ"

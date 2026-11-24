@@ -1,9 +1,9 @@
 from pathlib import Path
 
-from injest import load_raw_data
-from validate import validate_all
-from transform import transform_all
-from load import save_processed_outputs, load_to_duckdb
+from src.ingest import load_raw_data
+from src.load import load_to_duckdb, save_processed_outputs
+from src.transform import transform_all
+from src.validate import validate_all
 
 # Processed output folder.
 PROCESSED_DIR = Path("data/processed")

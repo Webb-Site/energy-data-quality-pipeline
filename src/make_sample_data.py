@@ -1,4 +1,5 @@
 from pathlib import Path
+
 import pandas as pd
 
 # This is where our raw source files will be stored.
@@ -117,6 +118,14 @@ def make_sample_data() -> None:
                 "customer_id": "C005",
                 "reading_start": "not_a_date",
                 "kwh_used": 0.75,
+            },
+            {
+                # Intentional data quality issue:
+                # far too much energy for one home in half an hour.
+                "reading_id": "R008",
+                "customer_id": "C002",
+                "reading_start": "2024-05-01T00:30:00Z",
+                "kwh_used": 25.0,
             },
         ]
     )
